@@ -23,9 +23,9 @@ namespace Hada
             get { return amonestacion; }
             set
             {
-                if (value > maxAmonestaciones)
+                if (value > maxAmonestaciones && amonestacionesMaximoExcedido!= null)
                 {
-
+                    amonestacionesMaximoExcedido(this, new AmonestacionesMaximoExcedidoArgs(value));
                 }
                 else
                 {
@@ -46,9 +46,9 @@ namespace Hada
             get { return falta; }
             set
             {
-                if (value > maxFaltas)
+                if (value > maxFaltas && faltasMaximoExcedido!= null)
                 {
-
+                    faltasMaximoExcedido(this, new FaltasMaximoExcedidoArgs(value));
                 }
                 else
                 {
@@ -61,9 +61,9 @@ namespace Hada
             get { return e; }
             set
             {
-                if (value < minEnergia)
+                if (value < minEnergia && energiaMinimaExcedida!=null)
                 {
-
+                    energiaMinimaExcedida(this, new EnergiaMinimaExcedidaArgs(value));
                 }
                 else
                 {
@@ -95,6 +95,84 @@ namespace Hada
             this.puntos = puntos;
 
         }
+        public void incAmonestaciones()
+        {
+            amonestaciones = amonestaciones + rand.Next(0, 2 + 1);
+        }
+        public void incFaltas()
+        {
+            faltas = faltas + rand.Next(0, 3 + 1);
 
+        }
+        public void decEnergia()
+        {
+            energia = energia - rand.Next(1, 7 + 1);
+        }
+        public void incPuntos()
+        {
+            puntos = puntos + rand.Next(0, 3 + 1);
+        }
+        public bool todoOk()
+        {
+            bool ok = false;
+            if(amonestaciones<=maxAmonestaciones && energia>=minEnergia && faltas <= maxFaltas)
+            {
+                ok =true;
+            }
+            return ok;
+        }
+        public void mover()
+        {
+            if (todoOk())
+            {
+                incAmonestaciones();
+                incFaltas();
+                incPuntos();
+                decEnergia();
+            }
+        }
+      
+        public override string ToString()
+        {
+            string str;
+            str = nombre + "Puntos: " + puntos + "; Amonestaciones: " + amonestaciones + "; Faltas: " + faltas + "; Energia: " + energia + "%; Ok";
+            if (todoOk())
+            {
+                str = str + ":True";
+            }
+            else
+            {
+                str = str + ":False";
+            }
+            return str;
+        }
+        public event EventHandler<AmonestacionesMaximoExcedidoArgs> amonestacionesMaximoExcedido;
+        public event EventHandler<FaltasMaximoExcedidoArgs> faltasMaximoExcedido;
+        public event EventHandler<EnergiaMinimaExcedidaArgs> energiaMinimaExcedida;
+
+        public class AmonestacionesMaximoExcedidoArgs: EventArgs
+        {
+             public int amonestaciones { get; set; }
+            public AmonestacionesMaximoExcedidoArgs(int amonestacion)
+            {
+                this.amonestaciones = amonestacion;
+            }
+        }
+        public class FaltasMaximoExcedidoArgs : EventArgs
+        {
+            public  int faltas { get; set; }
+            public FaltasMaximoExcedidoArgs(int falta)
+            {
+                this.faltas = falta;
+            }
+        }
+        public class EnergiaMinimaExcedidaArgs : EventArgs
+        {
+           public int energia{ get; set; } 
+            public EnergiaMinimaExcedidaArgs(int e)
+            {
+                this.energia=e;
+            }
+        }
     }
 }

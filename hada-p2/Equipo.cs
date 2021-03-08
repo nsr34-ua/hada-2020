@@ -29,10 +29,11 @@ namespace Hada
             for (int i =0 ; i < nj; i++)
             {
                 Jugador new_j = (new Jugador("Jugador_" +(i+1), 0, 0, 50, 0));
+                new_j.amonestacionesMaximoExcedido += cuandoAmonestacionesMaximoExcedido;
+                new_j.energiaMinimaExcedida += cuandoEnergiaMinimaExcedida;
+                new_j.faltasMaximoExcedido += cuandoFlatasMaximoExcedido;
                 jugadores.Add(new_j);
-                jugadores[i].amonestacionesMaximoExcedido += cuandoAmonestacionesMaximoExcedido;
-                jugadores[i].energiaMinimaExcedida += cuandoEnergiaMinimaExcedida;
-                jugadores[i].faltasMaximoExcedido += cuandoFlatasMaximoExcedido;
+            
 
             }
 
@@ -125,9 +126,9 @@ namespace Hada
         {
             Jugador jugador = (Hada.Jugador)slender;
 
-            if (!jugadoresLesionados.Contains(jugador))
+            if (jugadoresCansados.Contains(jugador)==false)
             {
-                jugadoresLesionados.Add(jugador);
+                jugadoresCansados.Add(jugador);
 
                 Console.WriteLine("¡¡Energia mínima excedida. Jugador retirado!!");
                 Console.WriteLine("Jugador: " + jugador.nombre);

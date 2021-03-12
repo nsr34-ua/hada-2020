@@ -1,4 +1,7 @@
-﻿using System;
+﻿
+//Nuria Seva Ródenas 48799013M 
+
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -18,6 +21,9 @@ namespace Hada
         public string nombre { get; private set; }
         public int puntos { get; set; }
 
+        /// <summary>
+        /// get y set de la propiedad, en caso de que el valor supere el máximo saltará el evento amonestacionesMaximoExcedido.
+        /// </summary>
         private int amonestaciones
         {
             get { return amonestacion; }
@@ -40,6 +46,9 @@ namespace Hada
             }
            
         }
+        /// <summary>
+        /// get y set de la propiedad, en caso de que el valor supere el máximo saltará el evento faltasMaximoExcedido.
+        /// </summary>
         private int faltas
         {
             get { return falta; }
@@ -55,6 +64,9 @@ namespace Hada
                 
             }
         }
+        /// <summary>
+        /// get y set de la propiedad, en caso de que el valor esté por debajo del mínimo saltará el evento energíaMinimaExcedida.
+        /// </summary>
         private int energia
         {
             get { return e; }
@@ -101,14 +113,14 @@ namespace Hada
 
         }
         /// <summary>
-        /// Aumenta la propiedad amonestaciones en un numero aleatorio entre 0 y 3
+        /// Aumenta la propiedad amonestaciones en un número aleatorio entre 0 y 3
         /// </summary>
         public void incAmonestaciones()
         {
             amonestaciones = amonestaciones + rand.Next(0, 2 + 1);
         }
         /// <summary>
-        /// Aumenta la propiedad faltas en un numero aleatorio entre 0 y 4
+        /// Aumenta la propiedad faltas en un número aleatorio entre 0 y 4
         /// </summary>
         public void incFaltas()
         {
@@ -116,7 +128,7 @@ namespace Hada
 
         }
         /// <summary>
-        ///Decrementa la propiedad energia en un numero aleatorio entre 1 y 8
+        ///Decrementa la propiedad energía en un número aleatorio entre 1 y 8
         /// </summary>
        
         public void decEnergia()
@@ -131,7 +143,7 @@ namespace Hada
             puntos = puntos + rand.Next(0, 3 + 1);
         }
         /// <summary>
-        /// Devuelve true en caso que  todas las propiedades sean menores/mayores que sus maximos/minimos
+        /// Devuelve true en caso que todas las propiedades sean menores/mayores que sus máximos/mínimos
         /// </summary>
         /// <returns></returns>
         public bool todoOk()
@@ -144,7 +156,7 @@ namespace Hada
             return ok;
         }
         /// <summary>
-        /// Hace uso de los metodos inc para aumentar las propiedades.
+        /// Hace uso de los métodos inc para aumentar las propiedades.
         /// </summary>
         public void mover()
         {
@@ -182,7 +194,7 @@ namespace Hada
         {
              public int amonestaciones { get; set; }
             /// <summary>
-            /// Contructor del evento, guarda el numero de amonestaciones con la que se produce el evento.
+            /// Constructor del evento, guarda el número de amonestaciones con la que se produce el evento.
             /// </summary>
             /// <param name="amonestacion"></param>
             public AmonestacionesMaximoExcedidoArgs(int amonestacion)
@@ -193,7 +205,7 @@ namespace Hada
         public class FaltasMaximoExcedidoArgs : EventArgs
         {
             /// <summary>
-            ///  /// Contructor del evento, guarda el numero de faltas con la que se produce el evento.
+            /// Constructor del evento, guarda el número de faltas con la que se produce el evento.
             /// </summary>
             public int faltas { get; set; }
             public FaltasMaximoExcedidoArgs(int falta)
@@ -202,7 +214,7 @@ namespace Hada
             }
         }
         /// <summary>
-        ///  /// Contructor del evento, guarda el numero de energia con la que se produce el evento.
+        /// Constructor del evento, guarda el número de energia con la que se produce el evento.
         /// </summary>
         public class EnergiaMinimaExcedidaArgs : EventArgs
         {

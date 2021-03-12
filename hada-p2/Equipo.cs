@@ -1,4 +1,7 @@
-﻿using System;
+﻿
+//Nuria Seva Ródenas 48799013M 
+
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -43,7 +46,7 @@ namespace Hada
 
         }
         /// <summary>
-        /// Mueve los jugadores y comprueba que la partida pueda continuar, es decir,el numero de jugadores no es menor al minimo.
+        /// Mueve los jugadores y comprueba que la partida pueda continuar, es decir,el número de jugadores disponibles no es menor al minimo.
         /// </summary>
         /// <returns></returns>
         public bool moverJugadores()
@@ -132,7 +135,7 @@ namespace Hada
             return str;
         }
         /// <summary>
-        /// Manejador del evento AmonestacionesMaximoExcedido,muestra la informacion del jugador que provoca el evento y lo añade a la lista.
+        /// Manejador del evento amonestacionesMaximoExcedido,muestra la informacion del jugador que provoca el evento y lo añade a la lista.
         /// </summary>
         /// <param name="slender"></param>
         /// <param name="e"></param>
@@ -152,7 +155,7 @@ namespace Hada
 
         }
         /// <summary>
-        /// anejador del evento FaltasMaximoExcedido,muestra la informacion del jugador que provoca el evento y lo añade a la lista.
+        /// Manejador del evento faltasMaximoExcedido,muestra la informacion del jugador que provoca el evento y lo añade a la lista.
         /// </summary>
         /// <param name="slender"></param>
         /// <param name="e"></param>
@@ -172,7 +175,7 @@ namespace Hada
 
         }
         /// <summary>
-        /// anejador del evento EnergiaMinimaExcedida,muestra la informacion del jugador que provoca el evento y lo añade a la lista.
+        /// Manejador del evento energiaMinimaExcedida,muestra la informacion del jugador que provoca el evento y lo añade a la lista.
         /// </summary>
         /// <param name="slender"></param>
         /// <param name="e"></param>

@@ -23,20 +23,21 @@ namespace Hada
             get { return amonestacion; }
             set
             {
-                if (value > maxAmonestaciones && amonestacionesMaximoExcedido!= null)
+                if (value > maxAmonestaciones && amonestacionesMaximoExcedido != null)
                 {
                     amonestacionesMaximoExcedido(this, new AmonestacionesMaximoExcedidoArgs(value));
                 }
-     
+
                 if (value < 0)
-                    {
-                        amonestacion = 0;
-                    }
-                    else
-                    {
-                        amonestacion = value;
-                    }
+                {
+                    amonestacion = 0;
                 }
+                else
+                {
+                    amonestacion = value;
+
+                }
+            }
            
         }
         private int faltas
@@ -44,11 +45,13 @@ namespace Hada
             get { return falta; }
             set
             {
-                if (value > maxFaltas && faltasMaximoExcedido!= null)
+                if (value > maxFaltas && faltasMaximoExcedido != null)
                 {
                     faltasMaximoExcedido(this, new FaltasMaximoExcedidoArgs(value));
                 }
-                 falta = value;
+               
+                falta = value;
+                
                 
             }
         }
@@ -80,6 +83,14 @@ namespace Hada
 
             
         }
+        /// <summary>
+        /// Constructor de la clase Jugador.
+        /// </summary>
+        /// <param name="nombre"></param>
+        /// <param name="amonestaciones"></param>
+        /// <param name="faltas"></param>
+        /// <param name="energia"></param>
+        /// <param name="puntos"></param>
         public Jugador(string nombre,int amonestaciones,int faltas,int energia,int puntos)
         {
             this.nombre = nombre;
@@ -89,23 +100,40 @@ namespace Hada
             this.puntos = puntos;
 
         }
+        /// <summary>
+        /// Aumenta la propiedad amonestaciones en un numero aleatorio entre 0 y 3
+        /// </summary>
         public void incAmonestaciones()
         {
             amonestaciones = amonestaciones + rand.Next(0, 2 + 1);
         }
+        /// <summary>
+        /// Aumenta la propiedad faltas en un numero aleatorio entre 0 y 4
+        /// </summary>
         public void incFaltas()
         {
             faltas = faltas + rand.Next(0, 3 + 1);
 
         }
+        /// <summary>
+        ///Decrementa la propiedad energia en un numero aleatorio entre 1 y 8
+        /// </summary>
+       
         public void decEnergia()
         {
             energia = energia - rand.Next(1, 7 + 1);
         }
+        /// <summary>
+        /// Aumenta la propiedad faltas en un numero aleatorio entre 0 y 4
+        /// </summary>
         public void incPuntos()
         {
             puntos = puntos + rand.Next(0, 3 + 1);
         }
+        /// <summary>
+        /// Devuelve true en caso que  todas las propiedades sean menores/mayores que sus maximos/minimos
+        /// </summary>
+        /// <returns></returns>
         public bool todoOk()
         {
             bool ok = true;
@@ -115,6 +143,9 @@ namespace Hada
             }
             return ok;
         }
+        /// <summary>
+        /// Hace uso de los metodos inc para aumentar las propiedades.
+        /// </summary>
         public void mover()
         {
             if (todoOk())
@@ -125,7 +156,10 @@ namespace Hada
                 decEnergia();
             }
         }
-      
+      /// <summary>
+      /// Sobrescribe el metodo toString, devuelve una cadena con los datos del jugador.
+      /// </summary>
+      /// <returns></returns>
         public override string ToString()
         {
             string str;
@@ -147,6 +181,10 @@ namespace Hada
         public class AmonestacionesMaximoExcedidoArgs: EventArgs
         {
              public int amonestaciones { get; set; }
+            /// <summary>
+            /// Contructor del evento, guarda el numero de amonestaciones con la que se produce el evento.
+            /// </summary>
+            /// <param name="amonestacion"></param>
             public AmonestacionesMaximoExcedidoArgs(int amonestacion)
             {
                 this.amonestaciones = amonestacion;
@@ -154,12 +192,18 @@ namespace Hada
         }
         public class FaltasMaximoExcedidoArgs : EventArgs
         {
-            public  int faltas { get; set; }
+            /// <summary>
+            ///  /// Contructor del evento, guarda el numero de faltas con la que se produce el evento.
+            /// </summary>
+            public int faltas { get; set; }
             public FaltasMaximoExcedidoArgs(int falta)
             {
                 this.faltas = falta;
             }
         }
+        /// <summary>
+        ///  /// Contructor del evento, guarda el numero de energia con la que se produce el evento.
+        /// </summary>
         public class EnergiaMinimaExcedidaArgs : EventArgs
         {
            public int energia{ get; set; } 

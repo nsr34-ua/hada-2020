@@ -18,7 +18,11 @@ namespace Hada
         public int movimientos { get; private set; }
         public string nombreEquipo { get; private set; }
 
-
+        /// <summary>
+        /// Constructor de la clase equipo, se crean los jugadores y se conectan los manejadores y los eventos.
+        /// </summary>
+        /// <param name="nj"></param>
+        /// <param name="nom"></param>
         public Equipo(int nj, string nom)
         {
             jugadores = new List<Jugador>();
@@ -38,6 +42,10 @@ namespace Hada
             }
 
         }
+        /// <summary>
+        /// Mueve los jugadores y comprueba que la partida pueda continuar, es decir,el numero de jugadores no es menor al minimo.
+        /// </summary>
+        /// <returns></returns>
         public bool moverJugadores()
         {
             bool mover = false;
@@ -45,7 +53,7 @@ namespace Hada
             for (int i = 0; i < jugadores.Count(); i++)
             {
                 if (jugadores[i].todoOk())
-                { 
+                {
                     jugadores[i].mover();
                     if (jugadores[i].todoOk())
                     {
@@ -60,6 +68,20 @@ namespace Hada
             }
             return mover;
         }
+        /// <summary>
+        /// Llama al metodo mover jugadores mientras devuelva true
+        /// </summary>
+        public void moverJugadoresEnBucle()
+        {
+            while (moverJugadores() == true)
+            {
+            }
+            
+        }
+        /// <summary>
+        /// Suma los puntos de todos los jugadores de un equipo
+        /// </summary>
+        /// <returns></returns>
         public int sumarPuntos()
         {
             int suma = 0;
@@ -69,19 +91,35 @@ namespace Hada
             }
             return suma;
         }
+        /// <summary>
+        /// Devuelve la lista con los jugadores cuya propiedad amonestaciones supere el máximo
+        /// </summary>
+        /// <returns></returns>
         public List<Jugador> getJugadoresExcedenLimiteAmonestaciones()
         {
             return jugadoresExpulsados;
         }
+        /// <summary>
+        /// Devuelve la lista con los jugadores cuya propiedad propiedades supere el máximo
+        /// </summary>
+        /// <returns></returns>
         public List<Jugador> getJugadoresExcedenLimiteFaltas()
         {
             return jugadoresLesionados;
         }
+        /// <summary>
+        /// Devuelve la lista con los jugadores cuya propiedad energia este por debajo del mínimo.
+        /// </summary>
+        /// <returns></returns>
         public List<Jugador> getJugadoresExcedenMinimoEnergia()
         {
             return jugadoresCansados;
         }
 
+        /// <summary>
+        /// Muestra la informacion de cada equipo y de sus respectivos jugadores.
+        /// </summary>
+        /// <returns></returns>
         public override string ToString()
         {
             string str;
@@ -93,20 +131,31 @@ namespace Hada
             }
             return str;
         }
+        /// <summary>
+        /// Manejador del evento AmonestacionesMaximoExcedido,muestra la informacion del jugador que provoca el evento y lo añade a la lista.
+        /// </summary>
+        /// <param name="slender"></param>
+        /// <param name="e"></param>
         private void cuandoAmonestacionesMaximoExcedido(object slender,Jugador.AmonestacionesMaximoExcedidoArgs e)
         {
             Jugador jugador = (Hada.Jugador)slender;
 
-            if (jugadoresExpulsados.Contains(jugador)==false)
+            if (jugadoresExpulsados.Contains(jugador) == false)
             {
                 jugadoresExpulsados.Add(jugador);
+
+                Console.WriteLine("¡¡Número máximo excedido de amonestaciones. Jugador expulsado!!");
+                Console.WriteLine("Jugador: " + jugador.nombre);
+                Console.WriteLine("Equipo: " + nombreEquipo);
+                Console.WriteLine("Amonestaciones: " + e.amonestaciones);
             }
-            Console.WriteLine("¡¡Número máximo excedido de amonestaciones. Jugador expulsado!!");
-            Console.WriteLine("Jugador: " + jugador.nombre);
-            Console.WriteLine("Equipo: " + nombreEquipo);
-            Console.WriteLine("Amonestaciones: " + e.amonestaciones);
 
         }
+        /// <summary>
+        /// anejador del evento FaltasMaximoExcedido,muestra la informacion del jugador que provoca el evento y lo añade a la lista.
+        /// </summary>
+        /// <param name="slender"></param>
+        /// <param name="e"></param>
         private void cuandoFlatasMaximoExcedido(object slender, Jugador.FaltasMaximoExcedidoArgs e)
         {
             Jugador jugador = (Hada.Jugador)slender;
@@ -122,6 +171,11 @@ namespace Hada
             }
 
         }
+        /// <summary>
+        /// anejador del evento EnergiaMinimaExcedida,muestra la informacion del jugador que provoca el evento y lo añade a la lista.
+        /// </summary>
+        /// <param name="slender"></param>
+        /// <param name="e"></param>
         private void cuandoEnergiaMinimaExcedida(object slender, Jugador.EnergiaMinimaExcedidaArgs e)
         {
             Jugador jugador = (Hada.Jugador)slender;
